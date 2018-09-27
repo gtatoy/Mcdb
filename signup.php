@@ -99,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <meta charset="UTF-8">
   <title>McDelivery Sign Up</title>
   
-     <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="css/stylesSignUp.css">
 </head>
 
 <body>

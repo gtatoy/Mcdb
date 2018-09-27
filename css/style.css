@@ -50,7 +50,7 @@ body :-ms-input-placeholder {
 .wrapper {
   /* background: #50a3a2; */
   background: red;
-  background: linear-gradient(to bottom right, red 0%, green 100%);
+  background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.411) 0%, red 100%);
   position: absolute;
   top: 50%;
   left: 0;
