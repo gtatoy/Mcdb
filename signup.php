@@ -98,8 +98,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
   <meta charset="UTF-8">
   <title>McDelivery Sign Up</title>
-  
-     <link rel="stylesheet" href="css/stylesSignUp.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/stylesSignUp.css">
 </head>
 
 <body>
@@ -110,10 +110,41 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<h1>Welcome</h1>
 		
 		<form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-			<input type="text" name="username" placeholder="<?php echo (!empty($username_err)) ? $username_err : 'Enter Username'; ?>">
-			<input type="password" name="password" placeholder="<?php echo (!empty($password_err)) ? $password_err : 'Enter Password'; ?>">
-			<input type="password" name="confirm_password" placeholder="<?php echo (!empty($confirm_password_err)) ? $confirm_password_err : 'Re-enter Password'; ?>">
-			<button type="submit" id="login-button">Sign Up</button>
+            <span class="row">
+            <input type="text" class="col-md-4" name="username" placeholder="<?php echo (!empty($username_err)) ? $username_err : 'Enter Username'; ?>">
+			<input type="password" class="col-md-4" name="password" placeholder="<?php echo (!empty($password_err)) ? $password_err : 'Enter Password'; ?>">
+			<input type="password" class="col-md-4" name="confirm_password" placeholder="<?php echo (!empty($confirm_password_err)) ? $confirm_password_err : 'Re-enter Password'; ?>">
+            </span>
+            <span class="row">
+            <input type="text" class="col-md-1" name="salutation" placeholder="Salutation">
+            <input type="text" class="col-md-5" name="firstName" placeholder="First Name">
+            <input type="text" class="col-md-1" name="middleInitial" placeholder="M.I.">
+            <input type="text" class="col-md-5" name="lastName" placeholder="Last Name">
+            </span>
+            <span class="row">
+            <input type="text" class="col-md-3" name="birthday" placeholder="Birthdate">
+            <input type="text" class="col-md-4" name="city" placeholder="City">
+            <input type="text" class="col-md-5" name="province" placeholder="Province">
+            </span>
+            <span class="row">
+            <input type="text" class="col-md-2" name="houseNumber" placeholder="House No.">
+            <input type="text" class="col-md-5" name="street" placeholder="Street">
+            <input type="text" class="col-md-5" name="village" placeholder="Village">
+            </span>
+            <span class="row">
+            <input type="text" class="col-md-4" name="building" placeholder="Building">
+            <input type="text" class="col-md-4" name="companyName" placeholder="Company Name">
+            <input type="text" class="col-md-4" name="addressType" placeholder="Address Type">
+            </span>
+            <span class="row">
+            <input type="text" class="col-md-5" name="landmark" placeholder="Landmark">
+            <input type="text" class="col-md-7" name="addressRemark" placeholder="Address Remark">
+            </span>
+            <span class="row">
+            <input type="number" class="col-md-5" name="mobileNumber" placeholder="Mobile Number">
+            <input type="text" class="col-md-7" name="emailAddress" placeholder="Email Address">
+            </span>
+            <button type="submit" class="col-md-12" id="login-button">Sign Up</button>
 		</form>
 	</div>
 	
