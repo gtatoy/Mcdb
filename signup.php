@@ -6,6 +6,92 @@ require_once 'config.php';
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
 
+if(empty($_POST["salutation"]))
+$sal = "";
+else
+$sal= "\"".$_POST["salutation"]."\"";
+
+if(empty($_POST["firstName"]))
+$fName = "";
+else
+$fName= "\"".$_POST["firstName"]."\"";
+
+if(empty($_POST["middleInitial"]))
+$mInitial = "";
+else
+$mInitial="\"".$_POST["middleInitial"]."\"";
+
+if(empty($_POST["lastName"]))
+$lName = "";
+else
+$lName="\"".$_POST["lastName"]."\"";
+
+if(empty($_POST["birthday"]))
+$birth = "";
+else
+$birth="\"".$_POST["birthday"]."\"";
+
+if(empty($_POST["city"]))
+$city = "";
+else
+$city="\"".$_POST["city"]."\"";
+
+if(empty($_POST["province"]))
+$prov = "";
+else
+$prov="\"".$_POST["province"]."\"";
+
+if(empty($_POST["houseNumber"]))
+$houseNo = "";
+else
+$houseNo="\"".$_POST["houseNumber"]."\"";
+
+if(empty($_POST["street"]))
+$street = "";
+else
+$street="\"".$_POST["street"]."\"";
+
+if(empty($_POST["village"]))
+$vlg = "";
+else
+$vlg="\"".$_POST["village"]."\"";
+
+if(empty($_POST["building"]))
+$bldg = "";
+else
+$bldg="\"".$_POST["building"]."\"";
+
+if(empty($_POST["companyName"]))
+$coName = "";
+else
+$coName="\"".$_POST["companyName"]."\"";
+
+if(empty($_POST["addressType"]))
+$adType = "";
+else
+$adType="\"".$_POST["addressType"]."\"";
+
+if(empty($_POST["landmark"]))
+$lMark = "";
+else
+$lMark="\"".$_POST["landmark"]."\"";
+
+if(empty($_POST["addressRemark"]))
+$adRemark = "";
+else
+$adRemark="\"".$_POST["addressRemark"]."\"";
+
+if(empty($_POST["mobileNumber"]))
+$mobile = "";
+else
+$mobile="\"".$_POST["mobileNumber"]."\"";
+
+if(empty($_POST["emailAddress"]))
+$emAd = "";
+else
+$emAd="\"".$_POST["emailAddress"]."\"";
+
+$debug ='2';
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -66,38 +152,57 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // Prepare an insert statement
         $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
-                header("location: welcome.php");
+                // Prepare an insert statement
+                            $sql = "SELECT id FROM users where username=\"".$username."\"";
+                            if($result = mysqli_query($link, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    $numrows=mysqli_num_rows($result);
+                                    $row = mysqli_fetch_array($result);
+                                    $userid=$row["id"];
+                                    mysqli_free_result($result);
+                                } else{
+                                    $numrows=0;
+                                    echo "No records matching your query were found.";
+                                }
+                            } else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                            }
+                                $sql = "INSERT INTO account (salutation, first_name, middle_initial, last_name, birthday, city, province,
+                                house_number, street, village, building, company_name, address_type, landmark,
+                                address_remark, mobile_number, email_address, users_id) VALUES ($sal, $fName, $mInitial, $lName, $birth, $city, $prov,
+                                $houseNo, $street, $vlg, $bldg, $coName, $adType, $lMark, $adRemark, $mobile, $emAd, $userid)";
+                                // // Validate fields
+                                mysqli_query($link, $sql);
+                                $debug=mysqli_error($link);
+                                // Redirect to login page
+                                header("location: login.php?state=1");
             } else{
                 echo "Something went wrong. Please try again later.";
             }
         }
-
         // Close statement
         mysqli_stmt_close($stmt);
     }
-
     // Close connection
     mysqli_close($link);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en" >
 
 <head>
   <meta charset="UTF-8">
-  <title>McDelivery Sign Up</title>
+  <title>McDelivery</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/stylesSignUp.css">
 </head>
@@ -107,8 +212,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <div class="wrapper">
 	<div class="container">
 		<img src="logo2.png" alt="logo">
-		<h1>Welcome</h1>
-		
+		<h1>Please fill up the form.</h1>
 		<form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <span class="row">
             <input type="text" class="col-md-4" name="username" placeholder="<?php echo (!empty($username_err)) ? $username_err : 'Enter Username'; ?>">
@@ -122,7 +226,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <input type="text" class="col-md-5" name="lastName" placeholder="Last Name">
             </span>
             <span class="row">
-            <input type="text" class="col-md-3" name="birthday" placeholder="Birthdate">
+            <input type="date" class="col-md-3" name="birthday" placeholder="Birthdate">
             <input type="text" class="col-md-4" name="city" placeholder="City">
             <input type="text" class="col-md-5" name="province" placeholder="Province">
             </span>

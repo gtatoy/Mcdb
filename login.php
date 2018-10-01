@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             save the username to the session */
                             session_start();
                             $_SESSION['username'] = $username;
-                            header("location: signup.php");
+                            header("location: menu.php");
                         } else{
                             // Display an error message if password is not valid
                             $password_err = 'Invalid password';
@@ -89,7 +89,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <div class="wrapper">
 	<div class="container">
 		<img src="logo2.png" alt="logo">
-		<h1>Welcome</h1>
+        <h1><?php 
+        
+        $var=false;
+        if(isset($_GET['state']))
+        $var = $_GET['state'];
+        
+        if($var)
+        echo "Sign Up Success! Log In?"; 
+        else 
+        echo "Welcome";?></h1>
 		
 		<form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			<input type="text" name="username" placeholder="<?php echo (!empty($username_err)) ? $username_err : 'Enter Username'; ?>">
